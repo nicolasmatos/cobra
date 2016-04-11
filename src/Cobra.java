@@ -42,6 +42,10 @@ public class Cobra extends DesenhoMovel implements ActionListener {
     
     private static int pontuacao = 0;
 
+	public static int getPontuacao() {
+		return pontuacao;
+	}
+
 	public Cobra() 
     {        
         addKeyListener(new movimento());
@@ -53,7 +57,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         iniciaJogo();
     }
     
-    private void carregaImagens() 
+    public void carregaImagens() 
     {
         ImageIcon co = new ImageIcon("corpo.png");
         corpo = co.getImage();
@@ -65,7 +69,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         cabeca = ca.getImage();
     }
     
-    private void iniciaJogo() 
+    public void iniciaJogo() 
     {
         tamCorpo = 3;
 
@@ -81,9 +85,9 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         tempo.start();
     }
     
-    private void fimJogo(Graphics g, int pontuacao) 
+    public void fimJogo(Graphics g) 
     {
-    	String pontos = "Pontuação: " + this.pontuacao;
+    	String pontos = "Pontuação: " + getPontuacao();
         String msg = "Fim de Jogo";
         Font small = new Font("Helvetica", Font.BOLD, 14);
         FontMetrics metr = getFontMetrics(small);
@@ -97,7 +101,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         //jogo.setVisible(true);
     }
     
-    private void escreveObjetos(Graphics g) 
+    public void escreveObjetos(Graphics g) 
     {
         if (execultaJogo) 
         {
@@ -119,11 +123,11 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         } 
         else 
         {
-            fimJogo(g, Cobra.pontuacao);
+            fimJogo(g);
         }        
     }
 
-    private void posicionaMaca()
+    public void posicionaMaca()
     {
         int r = (int) (Math.random() * POS_MACA);
         macaX = ((r * TAM_OBJETO));
@@ -132,7 +136,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         macaY = ((r * TAM_OBJETO));
     }
     
-    private void checaMaca() 
+    public void checaMaca() 
     {
         if ((cobraX[0] == macaX) && (cobraY[0] == macaY)) 
         {
@@ -142,7 +146,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         }
     }
 
-    private void mover() 
+    public void mover() 
     {
         for (int i = tamCorpo; i > 0; i--) 
         {
@@ -171,7 +175,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         }
     }
 
-    private void checaMovimento() 
+    public void checaMovimento() 
     {
         for (int i = tamCorpo; i > 0; i--) 
         {
@@ -207,7 +211,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         }
     }
 
-	private class movimento extends KeyAdapter 
+	public class movimento extends KeyAdapter 
 	{
         @Override
         public void keyPressed(KeyEvent e) 

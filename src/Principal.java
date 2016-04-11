@@ -11,8 +11,8 @@ public class Principal extends JFrame {
 	
 	public Principal()
 	{
-		add(new Cobra());
-        
+		Cobra c = new Cobra();
+		add(c);
         setResizable(false);
         pack();
         
