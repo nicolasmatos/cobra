@@ -40,8 +40,10 @@ public class Cobra extends DesenhoMovel implements ActionListener {
     private Image maca;
     private Image cabeca;
     
-    public Cobra() 
-    {
+    private static int pontuacao = 0;
+
+	public Cobra() 
+    {        
         addKeyListener(new movimento());
         setBackground(Color.black);
         setFocusable(true);
@@ -69,14 +71,30 @@ public class Cobra extends DesenhoMovel implements ActionListener {
 
         for (int i = 0; i < tamCorpo; i++) 
         {
-        	cobraX[i] = 50 - i * 10;
-        	cobraY[i] = 50;
+        	cobraX[i] = 150 - i * 10;
+        	cobraY[i] = 150;
         }
 
-        localizaMaca();
+        posicionaMaca();
 
         tempo = new Timer(VELOCIDADE, this);
         tempo.start();
+    }
+    
+    private void fimJogo(Graphics g, int pontuacao) 
+    {
+    	String pontos = "Pontuação: " + this.pontuacao;
+        String msg = "Fim de Jogo";
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics metr = getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(msg, (LARGURA - metr.stringWidth(msg)) / 2, (ALTURA / 2) - 50);
+        g.drawString(pontos, (LARGURA - metr.stringWidth(pontos)) / 2, ALTURA / 2);
+        
+        //JFrame jogo = new Principal();
+        //jogo.setVisible(true);
     }
     
     private void escreveObjetos(Graphics g) 
@@ -101,27 +119,26 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         } 
         else 
         {
-            fimJogo(g);
+            fimJogo(g, Cobra.pontuacao);
         }        
     }
 
-    private void fimJogo(Graphics g) 
+    private void posicionaMaca()
     {
-        String msg = "Fim de Jogo";
-        Font small = new Font("Helvetica", Font.BOLD, 14);
-        FontMetrics metr = getFontMetrics(small);
+        int r = (int) (Math.random() * POS_MACA);
+        macaX = ((r * TAM_OBJETO));
 
-        g.setColor(Color.white);
-        g.setFont(small);
-        g.drawString(msg, (LARGURA - metr.stringWidth(msg)) / 2, ALTURA / 2);
+        r = (int) (Math.random() * POS_MACA);
+        macaY = ((r * TAM_OBJETO));
     }
-
+    
     private void checaMaca() 
     {
         if ((cobraX[0] == macaX) && (cobraY[0] == macaY)) 
         {
         	tamCorpo++;
-        	localizaMaca();
+        	pontuacao++;
+        	posicionaMaca();
         }
     }
 
@@ -190,15 +207,6 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         }
     }
 
-    private void localizaMaca()
-    {
-        int r = (int) (Math.random() * POS_MACA);
-        macaX = ((r * TAM_OBJETO));
-
-        r = (int) (Math.random() * POS_MACA);
-        macaY = ((r * TAM_OBJETO));
-    }
-
 	private class movimento extends KeyAdapter 
 	{
         @Override
@@ -249,7 +257,7 @@ public class Cobra extends DesenhoMovel implements ActionListener {
         repaint();
     }
 	
-	//Método para tornar possivel escrever na tela as imagens da maçã e do corpo da cobra
+	//Método para ficar escrevendo na tela as imagens da maçã e do corpo da cobra
 	public void paintComponent(Graphics g) 
 	{
         super.paintComponent(g);

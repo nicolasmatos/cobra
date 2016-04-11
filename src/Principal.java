@@ -25,8 +25,8 @@ public class Principal extends JFrame {
     public static void main(String[] args) 
     {
     	
-        JFrame ex = new Principal();
-        ex.setVisible(true);
+        JFrame jogo = new Principal();
+        jogo.setVisible(true);
     }
 
 }
